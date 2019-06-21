@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <li v-for="(item, index) of items">
+        {{ parentMessage }} - {{ index }} - {{ item.message }}
+    </li>
+    <ul>
+        <li v-for="item in object">
+            {{item}}
+        </li>
+    </ul>
+    <ul>
+        <li v-for="(item, key, index) in object">
+            {{index}} . {{key}} : {{item}}
+        </li>
+    </ul>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            parentMessage: 'Parent',
+            items: [
+                { message: 'Foo' },
+                { message: 'Bar' }
+            ],
+            object: {
+                title: 'How to do lists in Vue',
+                author: 'Jane Doe',
+                publishedAt: '2016-04-10'
+            }
+        },
+        computed: {
+            // 计算属性的 getter
+            // 该方法同样可以放在 methods 中，但是 computed 会缓存 只在依赖对象改的时候才会重新计算
+            // methods 会在每次渲染的时候 都进行运算
+            reversedMessage: function () {
+                // `this` 指向 vm 实例
+                return this.message.split('').reverse().join('')
+            }
+        }
+    })
+</script>
+</body>
+</html>
